@@ -7,41 +7,20 @@ public func routes(_ router: Router) throws {
         return "Remote Config Service"
     }
     
-//    router.get("ios") { req in
-//        let a = JSON()
-////        return JSON(node: [
-////            "name" : "hey",
-////            "color" : "hey2"
-////        ])
-//
-//        return "aa"
-//    }
-    
-    router.get("hello", "world") { req in
-        return "Hello, world!"
-    }
-    
-    router.get("ios") { req -> AppConfig in
+    router.get("ios", String.parameter) { req -> AppConfig in
+        var content: [String: String] = [:]
+        content["TARGET_EPC"] = "2.29"
+        content["MODE"] = "all"
+        
+        let version = try req.parameters.next(String.self)
+        switch version {
+        case "0.25.26":
+            content["MODE"] = "basic"
+        default: break
+        }
+        
         return AppConfig(
-            config: [
-                "MODE": "basic",
-                "TARGET_EPC":"2.29",
-            ]
+            config: content
         )
     }
-    
-//    router.get("hello", "world") { request -> Encodable in
-//        let data: [String: String] = [
-//            "test": "test2"
-//        ]
-//        return "Hello, world!"
-//
-//        return try! request.content.encode(json: data, using: .custom(dates: .millisecondsSince1970))
-//    }
-
-    // Example of configuring a controller
-//    let todoController = TodoController()
-//    router.get("todos", use: todoController.index)
-//    router.post("todos", use: todoController.create)
-//    router.delete("todos", Todo.parameter, use: todoController.delete)
 }
