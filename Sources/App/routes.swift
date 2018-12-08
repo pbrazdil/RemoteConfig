@@ -20,7 +20,7 @@ public func routes(_ router: Router) throws {
         //         content["MODE"] = "basic"
         //     default: break
         //     }
-        }
+        // }
         
         return AppConfig(
             config: content
