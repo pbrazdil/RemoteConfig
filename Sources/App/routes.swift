@@ -2,7 +2,7 @@ import Vapor
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
-    // Basic "It works" example
+
     router.get { req in
         return "Remote Config Service"
     }
@@ -11,6 +11,7 @@ public func routes(_ router: Router) throws {
         var content: [String: String] = [:]
         content["TARGET_EPC"] = "2.29"
         content["MODE"] = "all"
+        content["PREMIUM_PANEL_EXTRA_COST"] = "0.07"
         
         // let bundle = try req.parameters.next(String.self)
         // let version = try req.parameters.next(String.self)
